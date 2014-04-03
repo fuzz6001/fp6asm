@@ -177,7 +177,10 @@ job_game:
 	call	put_char
 	pop	hl
 	;attrも
+	ld	de,ATTR_BASE
+	call	pos2vram
 	ld	a,COL_SPACE
+	ld	(hl),a
 
 	;自キャラ描く
 	ld	de,VRAM_BASE
@@ -190,7 +193,10 @@ job_game:
 	call	put_char
 	pop	hl
 	;attrも
+	ld	de,ATTR_BASE
+	call	pos2vram
 	ld	a,COL_SPACE
+	ld	(hl),a
 
 	;スクロール
 	call	ld004
