@@ -1,5 +1,5 @@
 
-FRAMERATE	equ	8	; ‚±‚±‚Ì’lx2ms‚Å“®‚«‚Ü‚·
+FRAMERATE	equ	8	; ã“ã“ã®å€¤x2msã§å‹•ãã¾ã™
 
 ATTR_BASE	equ	$e000
 ATTR_SIZE	equ	$0200
@@ -21,7 +21,7 @@ BAS_NY		equ	$df14	;1w	new Y
 ;		equ	$df16	;1b
 ;		equ	$df17	;1b
 BAS_SC		equ	$df18	;8b	score
-BAS_SC_NUM	equ	8	;Å‘å8Œ…
+BAS_SC_NUM	equ	8	;æœ€å¤§8æ¡
 
 pl_spd		equ	$df80	;1w	player speed
 pl_acc		equ	$df82	;1w	player acceleration
@@ -185,20 +185,20 @@ job_game:
 	bit	7,a	;push space?
 	jr	z,job_game_notap
 
-	;ã¸’†‚Ìƒ^ƒbƒv
-	ld	de,$fff8;	;‚¿‚å‚Á‚Æ‚¾‚¯•‚‚­
+	;ä¸Šæ˜‡ä¸­ã®ã‚¿ãƒƒãƒ—
+	ld	de,$fff8;	;ã¡ã‚‡ã£ã¨ã ã‘æµ®ã
 
 	ld	hl,(pl_spd)
 	ld	a,h
 	and	a
-	jp	m,job_game_tap		;ã¸’†‚Í‚¿‚å‚Á‚Æ‚¾‚¯•‚‚­
+	jp	m,job_game_tap		;ä¸Šæ˜‡ä¸­ã¯ã¡ã‚‡ã£ã¨ã ã‘æµ®ã
 	jr	nz,job_game_tap_down
 	ld	a,(pl_spd+0)
 	cp	$10
-	jr	c,job_game_tap		;‰º~’†‚àÅ‰‚Ì•û‚Í‚¿‚å‚Á‚Æ‚¾‚¯‚µ‚©•‚‚©‚È‚¢
+	jr	c,job_game_tap		;ä¸‹é™ä¸­ã‚‚æœ€åˆã®æ–¹ã¯ã¡ã‚‡ã£ã¨ã ã‘ã—ã‹æµ®ã‹ãªã„
 job_game_tap_down:
 
-	;ƒKƒbƒcƒŠ‰º~’†‚Ìƒ^ƒbƒv
+	;ã‚¬ãƒƒãƒ„ãƒªä¸‹é™ä¸­ã®ã‚¿ãƒƒãƒ—
 	ld	de,$ffa0;
 
 job_game_tap:
@@ -264,7 +264,7 @@ job_game_limit_end:
 	ld	a,(pl_spd+0)
 	cp	$40
 	jr	nc,set_player_pattern
-	ld	b,$e9;'‚Ì'
+	ld	b,$e9;'ã®'
 set_player_pattern:
 
 	;draw player
@@ -367,11 +367,11 @@ get_char:
 ;-----------------------------------------------------------------------
 pos2vram:
 	ld	a,h;Y
-	and	a,$0f;”O‚Ì‚½‚ß
+	and	a,$0f;å¿µã®ãŸã‚
 	sla	a
 	sla	a
 	sla	a
-	sla	a;‚±‚±‚Ü‚Å‚Ícy=1‚É‚È‚ç‚È‚¢
+	sla	a;ã“ã“ã¾ã§ã¯cy=1ã«ãªã‚‰ãªã„
 	sla	a;x$20
 	ld	h,0
 	rl	h
@@ -379,7 +379,7 @@ pos2vram:
 	add	a,l;X
 	ld	l,a
 ;	ld	a,h;;
-;	adc	a,0;;ÀÛ‚É‚ÍŒ…ã‚è‚Í”­¶‚µ‚È‚¢‚Ì‚Å–³‚­‚Ä‚à‚¢‚¢
+;	adc	a,0;;å®Ÿéš›ã«ã¯æ¡ä¸Šã‚Šã¯ç™ºç”Ÿã—ãªã„ã®ã§ç„¡ãã¦ã‚‚ã„ã„
 ;	ld	h,a;;
 	add	hl,de
 
@@ -440,8 +440,8 @@ draw_text:
 ;	de	*vram
 ;-----------------------------------------------------------------------
 draw_score:
-	ld	c,0	;•\¦ƒtƒ‰ƒO
-	ld	b,8	;Å‘å8Œ…
+	ld	c,0	;è¡¨ç¤ºãƒ•ãƒ©ã‚°
+	ld	b,8	;æœ€å¤§8æ¡
 
 draw_score_lp:
 	ld	a,c
@@ -452,7 +452,7 @@ draw_score_lp:
 	ld	a,(hl)
 	and	a
 	jr	nz,draw_score_on
-	;0‚Å‚àÅŒã‚ÌŒ…‚Í•\¦
+	;0ã§ã‚‚æœ€å¾Œã®æ¡ã¯è¡¨ç¤º
 	ld	a,b
 	dec	a
 	jr	nz,draw_score_skip
@@ -496,7 +496,7 @@ entry:
 	call	init_screen
 	call	init_stick
 
-	;ƒƒCƒ“ƒ‹[ƒv‚Ö
+	;ãƒ¡ã‚¤ãƒ³ãƒ«ãƒ¼ãƒ—ã¸
 	ld	a,JOBNO_INIT
 	ld	(jobno),a
 	ld	hl,0
@@ -519,17 +519,17 @@ timer_handler:
 ;	initialize screen
 ;-----------------------------------------------------------------------
 init_screen:
-	;•\¦OFF
+	;è¡¨ç¤ºOFF
 	ld	a,%00000010
 	out	($93),a
 
 	call	clear_screen
-	;•\¦ƒy[ƒW2
+	;è¡¨ç¤ºãƒšãƒ¼ã‚¸2
 	ld	a,%00000010
 	ld	b,%00000110
-	call	$1b54		;ƒ|[ƒg$b0ƒZƒbƒg
+	call	$1b54		;ãƒãƒ¼ãƒˆ$b0ã‚»ãƒƒãƒˆ
 
-	;•\¦ON
+	;è¡¨ç¤ºON
 	ld	a,%00000011
 	out	($93),a
 
@@ -594,19 +594,19 @@ update_stick:
 ;	entry 1 / initialize
 ;-----------------------------------------------------------------------
 ld000:
-	call	ld08d	;ƒ[ƒN‰Šú‰»
+	call	ld08d	;ãƒ¯ãƒ¼ã‚¯åˆæœŸåŒ–
 	ret
 
 ;-----------------------------------------------------------------------
 ;	entry 2 / scroll
 ;-----------------------------------------------------------------------
 ld004:
-	call	ld00b	;ƒAƒgƒŠƒrƒ…[ƒgƒGƒŠƒA‚ğ¶ƒXƒNƒ[ƒ‹
-	call	ld021	;‰E’[‚É’Œ‚Æ‚©ì‚é
+	call	ld00b	;ã‚¢ãƒˆãƒªãƒ“ãƒ¥ãƒ¼ãƒˆã‚¨ãƒªã‚¢ã‚’å·¦ã‚¹ã‚¯ãƒ­ãƒ¼ãƒ«
+	call	ld021	;å³ç«¯ã«æŸ±ã¨ã‹ä½œã‚‹
 	ret
 
 ;-----------------------------------------------------------------------
-;	ƒAƒgƒŠƒrƒ…[ƒgƒGƒŠƒA‚ğ¶ƒXƒNƒ[ƒ‹
+;	ã‚¢ãƒˆãƒªãƒ“ãƒ¥ãƒ¼ãƒˆã‚¨ãƒªã‚¢ã‚’å·¦ã‚¹ã‚¯ãƒ­ãƒ¼ãƒ«
 ;-----------------------------------------------------------------------
 ld00b:
 	ld	hl,ATTR_BASE
@@ -629,7 +629,7 @@ ld013:
 	ret
 
 ;-----------------------------------------------------------------------
-;	‰E’[‚É“yŠÇ‚ğì‚é
+;	å³ç«¯ã«åœŸç®¡ã‚’ä½œã‚‹
 ;-----------------------------------------------------------------------
 ld021:
 	ld	a,(ldf00)
@@ -638,7 +638,7 @@ ld021:
 	sub	$09
 	jr	c,ld042
 
-	;9ˆÈã
+	;9ä»¥ä¸Š
 	ld	a,COL_PIPE
 	ld	(ldf03),a
 	ld	a,(ldf01)
@@ -647,29 +647,29 @@ ld021:
 	jr	z,ld053
 	ld	a,COL_PIPE_SHADOW
 	ld	(ldf03),a
-	ld	a,(ldf01);¦‚±‚ê•K—v‚È‚¢!!
+	ld	a,(ldf01);â€»ã“ã‚Œå¿…è¦ãªã„!!
 	jr	ld053
 
-	;8ˆÈ‰º
+	;8ä»¥ä¸‹
 ld042:
-	;‰E’[ƒNƒŠƒA
+	;å³ç«¯ã‚¯ãƒªã‚¢
 	ld	a,$0f
 	ld	bc,$0020
-	ld	hl,ATTR_BASE+$1f	;1s–Ú‚Ì‰E’[
+	ld	hl,ATTR_BASE+$1f	;1è¡Œç›®ã®å³ç«¯
 ld04a:
-	ld	(hl),COL_SPACE	;‰½‚à–³‚¢
+	ld	(hl),COL_SPACE	;ä½•ã‚‚ç„¡ã„
 	add	hl,bc
 	dec	a
 	jr	nz,ld04a
-	;“yŠÇ‚ÌÅ‰‚Í–¾‚é‚¢!
+	;åœŸç®¡ã®æœ€åˆã¯æ˜ã‚‹ã„!
 	ld	(hl),COL_PIPE
 	ret
 
-	;(ldf03) = “yŠÇ‚ÌF
+	;(ldf03) = åœŸç®¡ã®è‰²
 ld053:
 	ld	a,(ldf02)	;rand
 	ld	bc,$0020
-	ld	hl,ATTR_BASE+$3f	;2s–Ú‚Ì‰E’[
+	ld	hl,ATTR_BASE+$3f	;2è¡Œç›®ã®å³ç«¯
 ld05c:
 	push	af
 	ld	a,(ldf03)
@@ -681,7 +681,7 @@ ld05c:
 
 	ld	a,$06
 ld068:
-	ld	(hl),COL_SPACE	;‰½‚à‚È‚¢
+	ld	(hl),COL_SPACE	;ä½•ã‚‚ãªã„
 	add	hl,bc
 	dec	a
 	jr	nz,ld068
@@ -703,11 +703,11 @@ ld075:
 	sub	$04
 	ret	c
 
-	call	ld08d	;ƒ[ƒN‰Šú‰»
+	call	ld08d	;ãƒ¯ãƒ¼ã‚¯åˆæœŸåŒ–
 	ret
 
 ;-----------------------------------------------------------------------
-;	ƒ[ƒN‰Šú‰»
+;	ãƒ¯ãƒ¼ã‚¯åˆæœŸåŒ–
 ;-----------------------------------------------------------------------
 ld08d:
 	xor	a
